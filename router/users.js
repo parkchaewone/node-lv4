@@ -15,7 +15,7 @@ router.post('/signup', async (req, res) => {
         email,
       },
     });
-    const userpassword = bcrypt.hashSync(password, saltRounds);
+    const userpassword = await bcrypt.hashSync(password, saltRounds);
     // 닉네임, 패스워드를 DB에 저장합니다.
     await Users.create({
       password: userpassword,
