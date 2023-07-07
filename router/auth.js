@@ -45,11 +45,9 @@ router.post("/login", async (req, res) => {
         const decodedRefreshToken = jwt.decode(refreshToken);
         const userId = decodedRefreshToken.userId;
 
-        const gat = generateAccessToken(user.userId);
-        res.cookie("accessToken", `Bearer ${gat}`);
+        const gat = generateAccessToken(userId);
 
-        const grt = generateRefreshToken(user.userId);
-        res.cookie("RefreshToken", `Bearer ${grt}`);
+        const grt = generateRefreshToken(userId);
 
         return res.cookie("accessToken", gat).cookie("refreshToken", grt).json({ message: "ACCESS TOKEN과 REFRESH TOKEN이 갱신되었습니다." });
       }
