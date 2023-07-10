@@ -8,7 +8,7 @@ router.post('/signup', async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res.status(401).json({ errormassage: '이메일 혹은 패스워드를 입력해주세요.' });
+      return res.status(401).json({ errorMessage: '이메일 혹은 패스워드를 입력해주세요.' });
     }
     const userExistence = await Users.findOne({
       where: {

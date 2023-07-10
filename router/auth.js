@@ -91,7 +91,7 @@ router.post("/login", async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ errormessage: "로그인 오류" });
+    res.status(500).json({ errorMessage: "로그인 오류" });
   }
 });
 router.post("/logout", (req, res) => {

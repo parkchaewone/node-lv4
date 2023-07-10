@@ -22,7 +22,7 @@ router.post("/posts/:postId/comments", authMiddleware, async (req, res) => {
       return res.status(400).send({ message: "댓글 내용을 입력해주세요." });
     }
   } catch {
-    return res.status(400).send({ message: "데이터 형식이 올바르지 않습니다." });
+    return res.status(400).send({ errorMessage: "데이터 형식이 올바르지 않습니다." });
   }
 });
 
@@ -45,13 +45,13 @@ router.get("/:postId/comments", async (req, res) => {
     }
     //댓글 존재여부를 확인합니다.
     if (!comments) {
-      return res.status(404).json({ error: "댓글이 존재하지 않습니다." });
+      return res.status(404).json({ errorMessege: "댓글이 존재하지 않습니다." });
     }
 
     res.status(200).json({ data: comments });
   } catch (err) {
     console.log(err);
-    res.status(400).send({ message: "댓글조회에 실패했습니다." });
+    res.status(400).send({  errorMessage: "댓글조회에 실패했습니다." });
   }
 });
 
@@ -89,20 +89,13 @@ router.delete("/:postId/comments/:commentId", async (req, res) => {
   try {
     const { postId, commentId } = req.params;
     const { password } = req.body;
-    // const { userId } = res.locals.user;
-    // const post = await Posts.findOne({
-    //   where: { postId: postId, commentId: commentId },
-    // });
-    // if (!post) {
-    //   return res.status(404).json({ message: "게시글 조회에 실패하였습니다." });
-    // }
     const comment = await Comments.findOne({
       where: { commentId: commentId, postId: postId },
     });
     console.log(comment);
 
     if (!comment) {
-      return res.status(404).json({ message: "댓글 조회에 실패하였습니다." });
+      return res.status(404).json({ erroeMessage: "댓글 조회에 실패하였습니다." });
     }
     if (password === comment.password) {
       return res.status(200).json({ message: "댓글을 삭제하였습니다." });
@@ -111,7 +104,7 @@ router.delete("/:postId/comments/:commentId", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    return res.status(400).send({ errmessage: "데이터 형식이 올바르지 않습니다." });
+    return res.status(400).send({ errorMessage: "데이터 형식이 올바르지 않습니다." });
   }
 });
 

@@ -66,10 +66,10 @@ router.delete("/:postId", authMiddleware, async (req, res) => {
   const post = await Posts.findOne({
     where: { postId: postId },
   });
-  if (!post) return res.status(400).json({ errMessage: "존재하지 않는 게시글입니다." });
+  if (!post) return res.status(400).json({ errorMessage: "존재하지 않는 게시글입니다." });
   if (post) {
     if (userId !== post.UserId) {
-      return res.status(400).json({ errMessage: "게시글을 삭제할 수 없습니다." });
+      return res.status(400).json({ errorMessage: "게시글을 삭제할 수 없습니다." });
     } else {
       await Posts.destroy({ where: { postId: postId } });
       res.status(201).json({ message: "게시글이 삭제되었습니다." });
