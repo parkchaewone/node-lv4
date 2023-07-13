@@ -51,7 +51,7 @@ router.get("/:postId/comments", async (req, res) => {
     res.status(200).json({ data: comments });
   } catch (err) {
     console.log(err);
-    res.status(400).send({  errorMessage: "댓글조회에 실패했습니다." });
+    res.status(400).send({ errorMessage: "댓글조회에 실패했습니다." });
   }
 });
 
@@ -98,6 +98,7 @@ router.delete("/:postId/comments/:commentId", async (req, res) => {
       return res.status(404).json({ erroeMessage: "댓글 조회에 실패하였습니다." });
     }
     if (password === comment.password) {
+      await comment.destroy({ where: { commentId } });
       return res.status(200).json({ message: "댓글을 삭제하였습니다." });
     } else {
       return res.status(404).json({ message: "비밀번호가 다릅니다." });

@@ -1,23 +1,27 @@
 const express = require("express");
 const router = express.Router();
 const { Op } = require("sequelize");
+const PostController = require("../controllers/post.controller");
+const postController = new PostController();
 
 const authMiddleware = require("../middlewares/authMiddleware.js");
-const { Posts, Users } = require("../models");
+// const { Posts, Users } = require("../models");
+
+router.post("/posts", authMiddleware, postController.post.bind(postController));
 
 // 게시글 생성
-router.post("/posts", authMiddleware, async (req, res) => {
-  const { userId } = res.locals.user;
-  const { title, content } = req.body;
+// router.post("/posts", authMiddleware, async (req, res) => {
+//   const { userId } = res.locals.user;
+//   const { title, content } = req.body;
 
-  const post = await Posts.create({
-    UserId: userId,
-    title,
-    content,
-  });
+//   const post = await Posts.create({
+//     UserId: userId,
+//     title,
+//     content,
+//   });
 
-  return res.status(201).json({ data: post });
-});
+//   return res.status(201).json({ data: post });
+// });
 // 게시글 목록 조회
 
 router.get("/posts", async (req, res) => {
