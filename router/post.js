@@ -13,7 +13,7 @@ router.get("/posts", authMiddleware, postController.postList.bind(postController
 
 router.get("/posts/:postId", postController.onePost.bind(postController));
 
-//router.put("/:postId", authMiddleware, postController.revise.bind(postController));
+router.put("/:postId", authMiddleware, postController.revise.bind(postController));
 // 게시글 생성
 // router.post("/posts", authMiddleware, async (req, res) => {
 //   const { userId } = res.locals.user;

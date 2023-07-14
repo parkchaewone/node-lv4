@@ -25,19 +25,22 @@ class PostService {
     return onePost;
   }
   //수정
-  // async revise(postId, userId, title, content) {
-  //   if (!postId) {
-  //     return res.status(400).json({ errorMessage: "존재하지 않는 게시글입니다." });
-  //   }
-  //   if (userId !== postId.UserId) {
-  //     return res.status(400).json({ errorMessage: "게시글 수정이 불가능합니다." });
-  //   } else {
-  //     await Posts.update({ postId, userId, title, content },
-  //       { where: { postId: postId } });
-  //     res.status(201).json({ message: "게시글이 수정되었습니다." });
-  //   }
-  //   return revise;
-  // }
+  async revise(postId, userId, title, content) {
+    if (!postId) {
+      return res.status(400).json({ errorMessage: "존재하지 않는 게시글입니다." });
+    }
+    const expost = await this.postRepository.onePost(postId);
+    console.log(expost);
+
+    if (userId !== expost.dataValues.UserId) {
+      return "실패";
+
+      // res.status(400).json({ errorMessage: "게시글 수정이 불가능합니다." });
+    } else {
+      await this.postRepository.revise(postId, userId, title, content);
+      return { message: "게시글이 수정되었습니다." };
+    }
+  }
   // //삭제
   // async deletePost(postId) {
   //   if (!post) return res.status(400).json({ errorMessage: "존재하지 않는 게시글입니다." });

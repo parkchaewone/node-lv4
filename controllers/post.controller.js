@@ -32,14 +32,14 @@ class PostController {
     const onePost = await this.postService.onePost(postId);
     res.status(200).json({ data: onePost });
   }
-  // //게시글 수정
-  // async revise(req, res, next) {
-  //   const { postId } = req.params;
-  //   const { title, content } = req.body;
-  //   const { userId } = res.locals.user;
-  //   const revise = await this.postService.revise(postId, userId, title, content);
-  //   res.status(200).json({ data: revise });
-  // }
+  //게시글 수정
+  async revise(req, res, next) {
+    const { postId } = req.params;
+    const { title, content } = req.body;
+    const { userId } = res.locals.user;
+    const revise = await this.postService.revise(postId, userId, title, content);
+    res.status(200).json({ data: revise.message });
+  }
   // //게시글 삭제
   // async deletePost(req, res, next) {
   //   const { postId } = req.params;

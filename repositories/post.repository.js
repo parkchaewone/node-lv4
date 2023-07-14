@@ -22,18 +22,21 @@ class PostRepository {
   //상세조회
   async onePost(postId) {
     const onePost = await Posts.findOne({
-      attributes: ["postId", "title", "content", "createdAt", "updatedAt"],
+      attributes: ["postId", "UserId", "title", "content", "createdAt", "updatedAt"],
       where: { postId },
     });
     return onePost;
   }
-  // //수정
-  // async revise(postId, userId, title, content) {
-  //   const revise = await Posts.findOne({
-  //     where: { postId: postId },
-  //   });
-  //   return revise;
-  // }
+  //수정
+  async revise(postId, userId, title, content) {
+    const revise = await Posts.update(
+      { title, content },
+      {
+        where: { postId },
+      }
+    );
+    return revise;
+  }
   // //삭제
   // async deletePost(){
   //   const post = await Posts.findOne({

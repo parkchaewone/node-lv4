@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "admin",
-    "password": "qwer120325",
+    "password": "QWER120325!",
     "database": "nodejsLv4",
     "host": "express-database.c6fbbakwtzia.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql"
