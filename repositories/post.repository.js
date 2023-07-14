@@ -37,11 +37,14 @@ class PostRepository {
     );
     return revise;
   }
-  // //삭제
-  // async deletePost(){
-  //   const post = await Posts.findOne({
-  //         where: { postId: PostId },
-  //       });
-  // }
+  //삭제
+  async deletePost(postId, userId) {
+    const deletePost = await Posts.delete(
+      { title, content },
+      {
+        where: { postId },
+      }
+    );
+  }
 }
 module.exports = PostRepository;

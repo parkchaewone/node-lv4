@@ -30,7 +30,6 @@ class PostService {
       return res.status(400).json({ errorMessage: "존재하지 않는 게시글입니다." });
     }
     const expost = await this.postRepository.onePost(postId);
-    console.log(expost);
 
     if (userId !== expost.dataValues.UserId) {
       return "실패";
@@ -41,17 +40,20 @@ class PostService {
       return { message: "게시글이 수정되었습니다." };
     }
   }
-  // //삭제
-  // async deletePost(postId) {
-  //   if (!post) return res.status(400).json({ errorMessage: "존재하지 않는 게시글입니다." });
-  //   if (post) {
-  //     if (userId !== post.UserId) {
-  //       return res.status(400).json({ errorMessage: "게시글을 삭제할 수 없습니다." });
-  //     } else {
-  //       await Posts.destroy({ where: { postId: postId } });
-  //       res.status(201).json({ message: "게시글이 삭제되었습니다." });
-  //     }
-  //   }
-  // }
+  //삭제
+  async deletePost(postId, userId) {
+    const post = await this.postRepository.onePost(postId);
+    if (!post) return res.status(400).json({ errorMessage: "존재하지 않는 게시글입니다." });
+    // const post = await this.postRepository.pos(postId);
+    if (post) {
+      if (userId !== post.dataValues.UserId) {
+        return res.status(400).json({ errorMessage: "게시글을 삭제할 수 없습니다." });
+      } else {
+        await Posts.destroy({ where: { postId: postId } });
+        res.status(201).json({ message: "게시글이 삭제되었습니다." });
+      }
+    }
+    return deletePost;
+  }
 }
 module.exports = PostService;

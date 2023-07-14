@@ -40,12 +40,13 @@ class PostController {
     const revise = await this.postService.revise(postId, userId, title, content);
     res.status(200).json({ data: revise.message });
   }
-  // //게시글 삭제
-  // async deletePost(req, res, next) {
-  //   const { postId } = req.params;
-  //   const { userId } = res.locals.user;
-  //   const deletePost = await this.postService.deletePost(postId, userId);
-  // }
+  //게시글 삭제
+  async deletePost(req, res, next) {
+    const { postId } = req.params;
+    const { userId } = res.locals.user;
+    const deletePost = await this.postService.deletePost(postId, userId);
+    res.status(200).json({ data: deletePost.message });
+  }
 }
 
 module.exports = PostController;
